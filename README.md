@@ -1,6 +1,12 @@
 # xyz.py
 
 XYZ.py is a Phython 3 command-line interface to work with HERE APIs starting with HERE XYZ Hub APIs.
+
+## Useful links
+- [HERE XYZ Hub APIs](https://www.here.xyz/api/)
+- [Swagger](https://xyz.api.here.com/hub/static/swagger/)
+- [HERE CLI (Official Node.js)](https://www.npmjs.com/package/@here/cli)
+
  
 ## Installing the command
 

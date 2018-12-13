@@ -14,7 +14,9 @@ class Project(BaseModel):
         self.rot = p["rot"]
         return p
 
-
+    def get_projects(self):
+        p = self.api.get_json(self.base_url_projects)
+        return p
 
 
 

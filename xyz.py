@@ -14,19 +14,27 @@ __author__ = "Roberto B."
 def input_project(args):
     print(args.pid)
     project_id = args.pid
-    project = Project()
-    print("Retrieving project " + project_id)
-    p = project.get_project(project_id)
-    rot = project.rot
 
-    project_id = p["id"]
-    print("Project: " + p["id"] + " Read access only token: " + rot)
-    print("Retrieving spaces")
-    space = Space()
-    space.rot = rot
-    spaces = space.get_spaces()
-    for s in spaces:
-        print("Space:" + s["id"] + " - " + s["title"])
+    if project_id:
+        project = Project()
+        print("Retrieving project " + project_id)
+        p = project.get_project(project_id)
+        rot = project.rot
+
+        project_id = p["id"]
+        print("Project: " + p["id"] + " Read access only token: " + rot)
+        print("Retrieving spaces")
+        space = Space()
+        space.rot = rot
+        spaces = space.get_spaces()
+        for s in spaces:
+            print("Space:" + s["id"] + " - " + s["title"])
+    else:
+        project = Project()
+        print("Retrieving projects ")
+        p = project.get_projects()
+        print(len(p))
+
 
 
 

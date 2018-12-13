@@ -42,6 +42,9 @@ def input_space(args):
     space = Space()
     s = space.get_space(args.sid, args.rot)
     print(s)
+
+
+def input_features(args):
     feature = Feature()
     f = feature.get_features(args.sid, args.rot)
     print(f)
@@ -58,6 +61,12 @@ parser_space = subparsers.add_parser('space', help='Managing XYZ Spaces')
 parser_space.add_argument('--sid', help='Space Identifier')
 parser_space.add_argument('--rot', help='ROT, Read Only Token')
 parser_space.set_defaults(func=input_space)
+
+parser_features = subparsers.add_parser('feature', help='Managing XYZ Features')
+parser_features.add_argument('--sid', help='Space Identifier')
+parser_features.add_argument('--fid', help='Feature Identifier')
+parser_features.add_argument('--rot', help='ROT, Read Only Token')
+parser_features.set_defaults(func=input_features)
 
 args = parser.parse_args()
 args.func(args)

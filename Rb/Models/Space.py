@@ -20,3 +20,10 @@ class Space(BaseModel):
         url = self.base_url_spaces+"/"+sid
         s = self.api.get_json(url, rot)
         return s
+
+    def get_space_statistics(self, sid, rot=None):
+        if rot is None:
+            rot = self.rot
+        url = self.base_url_spaces+"/"+sid+"/statistics"
+        s = self.api.get_json(url, rot)
+        return s

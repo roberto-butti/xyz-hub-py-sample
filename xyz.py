@@ -12,7 +12,7 @@ p = Project()
 __author__ = "Roberto B."
 
 def input_project(args):
-    print(args.pid)
+    # print(args.pid)
     project_id = args.pid
 
     if project_id:
@@ -20,7 +20,6 @@ def input_project(args):
         print("Retrieving project " + project_id)
         p = project.get_project(project_id)
         rot = project.rot
-
         project_id = p["id"]
         print("Project: " + p["id"] + " Read access only token: " + rot)
         print("Retrieving spaces")
@@ -34,8 +33,6 @@ def input_project(args):
         print("Retrieving projects ")
         p = project.get_projects()
         print(len(p))
-
-
 
 
 def input_space(args):

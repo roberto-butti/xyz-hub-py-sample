@@ -5,7 +5,7 @@ from Rb.Models.Project import Project
 from Rb.Models.Space import Space
 from Rb.Models.Feature import Feature
 from Rb.Config import Config
-import configparser
+
 
 __author__ = "Roberto B."
 
@@ -26,17 +26,21 @@ def input_project(args):
         rot = project.rot
         project_id = p["id"]
         print("Project: " + p["id"] + " Read access only token: " + rot)
-        print("Retrieving spaces")
-        space = Space(config)
-        space.rot = rot
-        spaces = space.get_spaces()
-        for s in spaces:
-            print("Space:" + s["id"] + " - " + s["title"])
+        if args.spaces:
+            print("Retrieving spaces")
+            space = Space(config)
+            space.rot = rot
+            spaces = space.get_spaces()
+            for s in spaces:
+                print("Space:" + s["id"] + " - " + s["title"])
     else:
         project = Project(config)
         print("Retrieving projects ")
         p = project.get_projects()
-        print(len(p))
+        if (args.show):
+            print(p)
+        else:
+            print(len(p))
 
 
 def input_space(args):
@@ -61,12 +65,16 @@ subparsers = parser.add_subparsers(help='Managing projects, spaces, feautres', d
 
 parser_project = subparsers.add_parser('project', help='Managing XYZ Projects')
 parser_project.add_argument('--pid', help='Project Identifier')
+#parser_project.add_argument('show')
+parser_project.add_argument('--show', action='store_const', const=True, help='Show also the Project Json')
+parser_project.add_argument('--spaces', action='store_const', const=True, help='Show also the list of spaces related to the Project')
+
 parser_project.set_defaults(func=input_project)
 
 parser_space = subparsers.add_parser('space', help='Managing XYZ Spaces')
 parser_space.add_argument('--sid', help='Space Identifier')
 parser_space.add_argument('--rot', help='ROT, Read Only Token')
-parser_space.add_argument('--statistics', help='Include Statistics')
+parser_space.add_argument('--statistics', action='store_const', const=True, help='Include Statistics')
 parser_space.set_defaults(func=input_space)
 
 parser_features = subparsers.add_parser('feature', help='Managing XYZ Features')
@@ -76,9 +84,10 @@ parser_features.add_argument('--rot', help='ROT, Read Only Token')
 parser_features.set_defaults(func=input_features)
 
 args = parser.parse_args()
-
+print(args)
 if (args.operation is None):
     print("Operation is missing.")
+    parser.print_help()
 else:
     args.func(args)
 

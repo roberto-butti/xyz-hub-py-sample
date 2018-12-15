@@ -5,8 +5,9 @@ class Project(BaseModel):
     base_url_projects = ""
     rot = ""
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, config):
+        super().__init__(config)
+
         self.base_url_projects = self.base_url + "project-api/projects/"
 
     def get_project(self, project_id):

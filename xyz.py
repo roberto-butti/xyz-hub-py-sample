@@ -4,39 +4,43 @@ import argparse
 from Rb.Models.Project import Project
 from Rb.Models.Space import Space
 from Rb.Models.Feature import Feature
-
-
-
-p = Project()
+from Rb.Config import Config
+import configparser
 
 __author__ = "Roberto B."
+
+
+config = Config()
+config.load()
+print(config.hostname)
+
 
 def input_project(args):
     # print(args.pid)
     project_id = args.pid
 
     if project_id:
-        project = Project()
+        project = Project(config)
         print("Retrieving project " + project_id)
         p = project.get_project(project_id)
         rot = project.rot
         project_id = p["id"]
         print("Project: " + p["id"] + " Read access only token: " + rot)
         print("Retrieving spaces")
-        space = Space()
+        space = Space(config)
         space.rot = rot
         spaces = space.get_spaces()
         for s in spaces:
             print("Space:" + s["id"] + " - " + s["title"])
     else:
-        project = Project()
+        project = Project(config)
         print("Retrieving projects ")
         p = project.get_projects()
         print(len(p))
 
 
 def input_space(args):
-    space = Space()
+    space = Space(config)
     s = space.get_space(args.sid, args.rot)
     print(s)
     if (args.statistics):
@@ -47,7 +51,7 @@ def input_space(args):
 
 
 def input_features(args):
-    feature = Feature()
+    feature = Feature(config)
     f = feature.get_features(args.sid, args.rot)
     print(f)
 

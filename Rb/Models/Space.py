@@ -3,8 +3,8 @@ from Rb.Models.BaseModel import BaseModel
 class Space(BaseModel):
     base_url_spaces = ""
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, config):
+        super().__init__(config)
         self.base_url_spaces = self.base_url + "hub/spaces"
 
     def get_spaces(self, rot=None):

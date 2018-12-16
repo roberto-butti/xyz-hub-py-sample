@@ -44,12 +44,18 @@ def input_project(args):
 
 
 def input_space(args):
-    space = Space(config)
-    s = space.get_space(args.sid, args.rot)
-    print(s)
-    if (args.statistics):
-        s = space.get_space_statistics(args.sid, args.rot)
+
+    if (args.list):
+        space = Space(config)
+        s = space.get_spaces(args.rot)
+        print(json.dumps(s, indent=2))
+    else:
+        space = Space(config)
+        s = space.get_space(args.sid, args.rot)
         print(s)
+        if (args.statistics):
+            s = space.get_space_statistics(args.sid, args.rot)
+            print(s)
 
 
 
@@ -72,6 +78,7 @@ parser_project.add_argument('--spaces', action='store_const', const=True, help='
 parser_project.set_defaults(func=input_project)
 
 parser_space = subparsers.add_parser('space', help='Managing XYZ Spaces')
+parser_space.add_argument('--list', action='store_const', const=True, help='Show all spaces')
 parser_space.add_argument('--sid', help='Space Identifier')
 parser_space.add_argument('--rot', help='ROT, Read Only Token')
 parser_space.add_argument('--statistics', action='store_const', const=True, help='Include Statistics')
@@ -84,12 +91,12 @@ parser_features.add_argument('--rot', help='ROT, Read Only Token')
 parser_features.set_defaults(func=input_features)
 
 args = parser.parse_args()
-print(args)
+# print(args)
 if (args.operation is None):
     print("Operation is missing.")
     parser.print_help()
 else:
     args.func(args)
 
-print("Well done!")
+# print("Well done!")
 

@@ -1,6 +1,9 @@
-# xyz.py
+# xyz-samples.py
 
-XYZ.py is a Phython 3 command-line interface to work with HERE APIs starting with HERE XYZ Hub APIs.
+This is a set of samples written with Python 3 for the integration with HERE XYZ Hub APIs.
+If you are looking for the official CLI tools, please take a look there :
+[HERE CLI (Official Node.js)](https://www.npmjs.com/package/@here/cli).
+
 
 ## Useful links
 - [HERE XYZ Hub APIs](https://www.here.xyz/api/)

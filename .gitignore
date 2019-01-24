@@ -133,6 +133,7 @@ venv.bak/
 .mypy_cache/
 
 .idea/
+.vscode/
 
 /prova*.py
 

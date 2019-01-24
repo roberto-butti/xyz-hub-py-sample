@@ -56,6 +56,8 @@ def input_space(args):
         if (args.statistics):
             s = space.get_space_statistics(args.sid, args.rot)
             print(s)
+            s = space.get_space_count(args.sid, args.rot)
+            print(s)
 
 
 

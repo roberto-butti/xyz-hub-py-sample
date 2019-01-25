@@ -27,12 +27,17 @@ def input_project(args):
         project_id = p["id"]
         print("Project: " + p["id"] + " Read access only token: " + rot)
         if args.spaces:
-            print("Retrieving spaces")
-            space = Space(config)
-            space.rot = rot
-            spaces = space.get_spaces()
-            for s in spaces:
-                print("Space:" + s["id"] + " - " + s["title"])
+            layers = p["layers"]
+            for l in layers:
+                print("## Layer " + l["meta"]["title"])
+                print("### Space : " + l["geospace"]["id"] )
+
+            #print("Retrieving spaces")
+            #space = Space(config)
+            #space.rot = rot
+            #spaces = space.get_spaces()
+            #for s in spaces:
+            #    print("Space:" + s["id"] + " - " + s["title"])
     else:
         project = Project(config)
         print("Retrieving projects ")

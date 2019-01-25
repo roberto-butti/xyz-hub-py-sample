@@ -4,6 +4,7 @@ import argparse
 from Rb.Models.Project import Project
 from Rb.Models.Space import Space
 from Rb.Models.Feature import Feature
+from Rb.Models.Fit import Fit
 from Rb.Config import Config
 
 
@@ -72,6 +73,15 @@ def input_features(args):
     f = feature.get_features(args.sid, args.rot)
     print(f)
 
+def input_fit(args):
+    fit = Fit(config)
+    if (args.file):
+        f = fit.parse_fit(args.file)
+        print(f)
+    else:
+        print("NOTING")
+
+
 
 parser = argparse.ArgumentParser(prog='xyz', description='XYZ Studio Project Inspector.')
 subparsers = parser.add_subparsers(help='Managing projects, spaces, feautres', dest='operation')
@@ -96,6 +106,10 @@ parser_features.add_argument('--sid', help='Space Identifier')
 parser_features.add_argument('--fid', help='Feature Identifier')
 parser_features.add_argument('--rot', help='ROT, Read Only Token')
 parser_features.set_defaults(func=input_features)
+
+parser_fit = subparsers.add_parser('fit', help='Parsing FIT file')
+parser_fit.add_argument('--file', help='Fit File')
+parser_fit.set_defaults(func=input_fit)
 
 args = parser.parse_args()
 # print(args)

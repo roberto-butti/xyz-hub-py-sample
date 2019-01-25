@@ -32,6 +32,14 @@ python xyz.py project --pid <pid>
 ```
 where *pid* is a valid project identifier. The projects needs to be published.
 
+### Retrieving Project's Spaces
+
+```
+python xyz.py project --pid <pid> --spaces
+```
+where *pid* is a valid project identifier. The projects needs to be published.
+
+
 ### Exploring a space
 ```
 python xyz.py space --sid <sid> --rot <rot>

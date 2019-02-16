@@ -10,7 +10,7 @@ import json
 
 
 class controllers():
-    
+
     def __init__(self):
         pass
 
@@ -21,7 +21,8 @@ class controllers():
         project = Project(config)
         print("Retrieving projects ")
         p = project.get_projects()
-        return render_template("project_list.html", data=p)
+        return p
+        # return render_template("project_list.html", data=p)
         # return p
         # print(json.dumps(p, indent=1))
         # return json.dumps(p, indent=1)

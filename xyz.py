@@ -79,7 +79,7 @@ def input_fit(args):
         f = fit.parse_fit(args.file)
         print(f)
     else:
-        print("NOTING")
+        print("NOTHING")
 
 
 

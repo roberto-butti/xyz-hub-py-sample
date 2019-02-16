@@ -1,34 +1,53 @@
 from Rb.Models.BaseModel import BaseModel
+from fitparse import FitFile, FitParseError
+from geojson import Feature, Point, FeatureCollection
 import json
-from fitparse import FitFile
+import datetime
+
+# https://pythonhosted.org/fitparse/
+def default_timestamp_format(o):
+    if isinstance(o, (datetime.date, datetime.datetime)):
+        return o.isoformat()
 
 
 class Fit(BaseModel):
-    #base_url_feature = ""
-
     def __init__(self, config):
         super().__init__(config)
-        #self.base_url_feature = self.base_url + "hub/spaces/{0}/iterate"
 
     def parse_fit(self, fit_file):
-        fitfile = FitFile(fit_file)
+        try:
+            fitfile = FitFile(fit_file)
+        except FitParseError as e:
+            print("Error while parsing .FIT file: {0}".format(e))
+            return None
+        except FileNotFoundError:
+            print("File not exists: {0}".format(fit_file))
+            return None
+
         i=1
+        features_array = []
         for record in fitfile.get_messages('record'):
-        # Go through all the data entries in this record
-            print(record)
-            print(record.get_values())
+            record_values = record.get_values()
+            r = 0
             for record_data in record:
-                
-                # Print the records name and value (and units if it has any)
-                #print(record_data)
                 if record_data.units:
+                    r = r+1
                     print(" * %s: %s %s" % (
                         record_data.name, record_data.value, record_data.units,
                     ))
                 else:
-                    print(" * %s: %s" % (record_data.name, record_data.value))
-            print("---------------"+str(i))
+                    r = r + 1
+                    # print(" * %s: %s" % (record_data.name, record_data.value))
+            # print("---------------"+str(i))
             i=i+1
-        
+            latitude = record_values["position_lat"] * ( 180 / 2147483648)
+            longitude = record_values["position_long"] * ( 180 / 2147483648)
+            p = Point( (longitude, latitude) )
+            f =Feature(geometry=p, properties=record_values)
+            features_array.append(f)
+        feature_collection = FeatureCollection(features_array)
+        with open(fit_file + '.json', 'w') as outfile:
+            outfile.write(json.dumps(feature_collection, sort_keys=True, indent=1, default=default_timestamp_format))
+            outfile.close()
         return None
 

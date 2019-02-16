@@ -6,5 +6,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def main():
-    c = controllers()
-    return c.project_list()
+  c = controllers()
+  return c.project_list()
+

@@ -26,3 +26,26 @@ class controllers():
         # return p
         # print(json.dumps(p, indent=1))
         # return json.dumps(p, indent=1)
+
+
+    def project_detail(self, id):
+        config = Config()
+        config.load()
+        print(config.hostname)
+        project = Project(config)
+        print("Retrieving projects ")
+        p = project.get_project(id)
+        return p
+
+
+    def space_detail(self, id, rot):
+
+
+
+        config = Config()
+        config.load()
+        print(config.hostname)
+        space = Space(config)
+        print("Retrieving space " + id)
+        s = space.get_space(id, rot)
+        return s
